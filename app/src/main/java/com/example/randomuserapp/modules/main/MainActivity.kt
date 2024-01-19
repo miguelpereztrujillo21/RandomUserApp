@@ -1,7 +1,8 @@
-package com.example.randomuserapp
+package com.example.randomuserapp.modules.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.randomuserapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
