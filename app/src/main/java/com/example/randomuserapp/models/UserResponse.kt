@@ -1,6 +1,6 @@
 package com.example.randomuserapp.models
 
-data class UserResponse(
-    val results: List<User>,
-    val info: Info
-)
+class UserResponse {
+    val results: ArrayList<User>? = null
+    val info: Info? = null
+}

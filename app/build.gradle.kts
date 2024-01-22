@@ -1,13 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
 }
 
 android {
-    apply(plugin = "kotlin-android")
-    apply(plugin = "kotlin-kapt")
-
     namespace = "com.example.randomuserapp"
     compileSdk = 34
 
@@ -34,6 +30,7 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
+            buildConfigField("String", "API_URL", "\"https://randomuser.me/api\"")
         }
         debug {
             isMinifyEnabled = false
@@ -69,5 +66,4 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    kapt("com.android.data-binding:compiler:3.1.4")
 }
