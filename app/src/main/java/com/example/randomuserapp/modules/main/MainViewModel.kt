@@ -18,6 +18,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = apiRepository.getUsers(page = currentPage)
+                users.postValue(response.results)
                 isLoading = true
             } catch (e: Exception) {
                 handleException(e)
