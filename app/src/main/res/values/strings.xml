@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">RandomUserApp</string>
     <string name="user_full_name">%s %s</string>
+    <string name="simple_contacts">CONTACTOS</string>
+
+    <string name="back_button_content_desc">Back Button</string>
+    <string name="options_button_content_desc">Options Button</string>
 </resources>

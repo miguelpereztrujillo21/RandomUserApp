@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainViewModel = viewModel
 
         initObservers()
-        setUpRecycler()
+        initComponents()
         viewModel.getUsers()
     }
 
@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.users.observe(this){
             adapter?.submitList(it)
         }
+    }
+
+    private fun initComponents(){
+        setUpRecycler()
+        binding.toolbar.title.text = getString(R.string.simple_contacts)
     }
     private fun setUpRecycler() {
         adapter = UserAdapter(this, object : UserAdapter.ClickListener {
