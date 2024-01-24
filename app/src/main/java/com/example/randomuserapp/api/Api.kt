@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @GET
+    @GET("api/")
     suspend fun getUsers(@Query("page") page: Int? = null): Response<UserResponse>
 
 }

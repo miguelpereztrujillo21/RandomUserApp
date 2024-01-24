@@ -3,7 +3,6 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -32,8 +31,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            isDebuggable = true
             signingConfig = signingConfigs.getByName("debug")
-            buildConfigField("String", "API_URL", "\"https://randomuser.me/api\"")
+            buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
         }
         debug {
             isMinifyEnabled = false
@@ -42,6 +42,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
+            buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
         }
     }
     compileOptions {
@@ -54,7 +56,7 @@ android {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.0.0")
+
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -70,12 +72,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    // Opcional: Dagger Android
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    //Livecycle
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
-}
-
-kapt {
-    correctErrorTypes = true
 }
