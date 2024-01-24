@@ -3,8 +3,8 @@ package com.example.randomuserapp.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.randomuserapp.R
@@ -12,7 +12,7 @@ import com.example.randomuserapp.databinding.UserItemBinding
 import com.example.randomuserapp.models.User
 
 class UserAdapter(private val context: Context, private val clickListener: ClickListener) :
-    ListAdapter<User, UserAdapter.ViewHolder>(
+    PagingDataAdapter<User, UserAdapter.ViewHolder>(
         CountryDiffCallback()
     ) {
 
@@ -21,7 +21,7 @@ class UserAdapter(private val context: Context, private val clickListener: Click
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(context, getItem(position), clickListener)
+        getItem(position)?.let { holder.bind(context, it, clickListener) }
     }
 
     class ViewHolder private constructor(private val binding: UserItemBinding) :

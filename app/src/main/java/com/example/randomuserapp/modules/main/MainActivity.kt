@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         initObservers()
         initComponents()
-        viewModel.getUsers()
+        //viewModel.getUsers()
     }
 
     private fun initObservers(){
         viewModel.users.observe(this){
-            adapter?.submitList(it)
+            adapter?.submitData(lifecycle,it)
         }
     }
 
