@@ -13,6 +13,8 @@ import com.example.randomuserapp.adapters.UserAdapter
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.api.RetrofitApiService
 import com.example.randomuserapp.databinding.ActivityMainBinding
+import com.example.randomuserapp.helpers.Constants
+import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         initObservers()
         initComponents()
-        //viewModel.getUsers()
     }
 
     private fun initObservers(){
@@ -49,7 +50,14 @@ class MainActivity : AppCompatActivity() {
     private fun setUpRecycler() {
         adapter = UserAdapter(this, object : UserAdapter.ClickListener {
             override fun onClick(position: Int) {
-
+                val intent = Intent(this@MainActivity, ProfileDetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString(
+                    Constants.BUNDLE_KEY_USER,
+                    Gson().toJson(adapter?.getUserPosition(position))
+                )
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         })
         binding.recyclerMain.adapter = adapter

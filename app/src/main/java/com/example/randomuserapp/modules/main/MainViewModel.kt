@@ -13,14 +13,13 @@ import androidx.paging.cachedIn
 import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.UserPagingSource
 import com.example.randomuserapp.models.User
-import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
     //var users = MutableLiveData<ArrayList<User>>()
-    var error = MutableLiveData<String>()
-    private var currentPage = 1
-    private var isLoading = false
+    private var error = MutableLiveData<String>()
+   /* private var currentPage = 1
+    private var isLoading = false*/
     val users: LiveData<PagingData<User>> = Pager(
         config = PagingConfig(
             pageSize = PAGE_SIZE,
@@ -30,8 +29,6 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
     ).flow
         .cachedIn(viewModelScope)
         .asLiveData()
-
-
 
  /*   fun getUsers() {
         viewModelScope.launch {

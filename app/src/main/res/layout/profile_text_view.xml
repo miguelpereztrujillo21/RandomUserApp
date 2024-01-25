@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/text_view_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mid_margin"
+            android:layout_marginEnd="@dimen/mid_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_view_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/user_icon" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mid_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_value"
+            app:layout_constraintStart_toEndOf="@+id/text_view_icon"
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:text="Nombre y apellidos" />
+
+        <TextView
+            android:id="@+id/text_view_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mid_margin"
+            android:paddingBottom="@dimen/mid_margin"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_view_icon"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            tools:text="Laura Navarro Martiñez" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey_light"
+            android:layout_marginStart="@dimen/large_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_view_value"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

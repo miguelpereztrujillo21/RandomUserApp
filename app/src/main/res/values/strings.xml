@@ -2,6 +2,15 @@
     <string name="app_name">RandomUserApp</string>
     <string name="user_full_name">%s %s</string>
     <string name="simple_contacts">CONTACTOS</string>
+    <string name="simple_male">Hombre</string>
+    <string name="simple_female">Mujer</string>
+
+    <string name="detail_name">Nombre y apellidos</string>
+    <string name="detail_email">Email</string>
+    <string name="detail_gender">Género</string>
+    <string name="detail_reg_date">Fecha de registro</string>
+    <string name="detail_phone">Teléfono</string>
+
 
     <string name="back_button_content_desc">Back Button</string>
     <string name="options_button_content_desc">Options Button</string>
