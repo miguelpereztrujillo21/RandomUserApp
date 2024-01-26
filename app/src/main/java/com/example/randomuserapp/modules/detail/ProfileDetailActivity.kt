@@ -13,6 +13,7 @@ import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.models.User
 import com.google.gson.Gson
 
+
 class ProfileDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailProfileBinding
@@ -28,7 +29,7 @@ class ProfileDetailActivity : AppCompatActivity() {
         val fullName = Utils.getUserFullName(this, user)
         initToolbar(fullName)
         setUpTextViews(user)
-        Glide.with(this).load(user?.picture?.thumbnail).into(binding.profileImageDetailProfile)
+        Glide.with(this).load(user?.picture?.medium).into(binding.profileImageDetailProfile)
     }
 
     private fun newTextViewDetail(iconResId: Int, title: String, value: String?) {
@@ -43,7 +44,7 @@ class ProfileDetailActivity : AppCompatActivity() {
     }
 
     private fun initToolbar(fullname: String) {
-        binding.toolbar.title.text = fullname
+        binding.toolbar.title.text = fullname.uppercase()
         binding.toolbar.backButton.setOnClickListener {
             finish()
         }
@@ -67,6 +68,7 @@ class ProfileDetailActivity : AppCompatActivity() {
             Utils.formatDateString(user?.registered?.date)
         )
         newTextViewDetail(R.drawable.phone_icon, getString(R.string.detail_phone), user?.phone)
+        binding.textViewDirection.text = getString(R.string.detail_direccion)
     }
 
     private fun getExtras() {

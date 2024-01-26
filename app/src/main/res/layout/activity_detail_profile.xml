@@ -31,8 +31,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:ignore="ContentDescription"
+                android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
+
+
         </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/text_view_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_value"
+            app:layout_constraintStart_toEndOf="@+id/text_view_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Dirección" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="283:143"
+            tools:src="@color/black"/>
 
     </LinearLayout>
 </layout>

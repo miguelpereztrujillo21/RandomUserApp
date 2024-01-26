@@ -29,7 +29,6 @@
             app:layout_constraintBottom_toTopOf="@+id/text_view_value"
             app:layout_constraintStart_toEndOf="@+id/text_view_icon"
             app:layout_constraintTop_toTopOf="parent"
-
             tools:text="Nombre y apellidos" />
 
         <TextView
@@ -46,14 +45,15 @@
             tools:text="Laura Navarro Martiñez" />
 
         <View
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/grey_light"
-            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginStart="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_view_value"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_value" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_value"
+            android:layout_marginEnd="@dimen/mid_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

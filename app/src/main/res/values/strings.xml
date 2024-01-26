@@ -10,6 +10,7 @@
     <string name="detail_gender">Género</string>
     <string name="detail_reg_date">Fecha de registro</string>
     <string name="detail_phone">Teléfono</string>
+    <string name="detail_direccion">Dirección</string>
 
 
     <string name="back_button_content_desc">Back Button</string>
