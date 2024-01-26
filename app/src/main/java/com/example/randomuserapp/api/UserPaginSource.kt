@@ -3,17 +3,13 @@ package com.example.randomuserapp.api
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.randomuserapp.models.User
-import java.time.LocalDateTime
 import kotlin.math.max
-
-private val firstArticleCreatedTime = LocalDateTime.now()
 class UserPagingSource(private val apiRepository: ApiRepository) : PagingSource<Int, User>() {
 
     private val STARTING_KEY = 1
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val start = params.key ?: STARTING_KEY
-        val range = start.until(start + params.loadSize)
 
         return try {
             val response = apiRepository.getUsers(start)
@@ -34,7 +30,6 @@ class UserPagingSource(private val apiRepository: ApiRepository) : PagingSource<
         val anchorPosition = state.anchorPosition ?: return null
         val user = state.closestItemToPosition(anchorPosition) ?: return null
 
-        // Haciendo algunas suposiciones sobre la estructura de la clase Id y el campo id
         return ensureValidKey(user.id.value.toInt() - (state.config.pageSize / 2))
     }
 
