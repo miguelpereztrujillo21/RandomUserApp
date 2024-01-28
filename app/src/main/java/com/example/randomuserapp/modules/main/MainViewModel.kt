@@ -16,10 +16,8 @@ import com.example.randomuserapp.models.User
 
 class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
-    //var users = MutableLiveData<ArrayList<User>>()
+
     private var error = MutableLiveData<String>()
-   /* private var currentPage = 1
-    private var isLoading = false*/
     val users: LiveData<PagingData<User>> = Pager(
         config = PagingConfig(
             pageSize = PAGE_SIZE,
@@ -29,20 +27,6 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
     ).flow
         .cachedIn(viewModelScope)
         .asLiveData()
-
- /*   fun getUsers() {
-        viewModelScope.launch {
-            try {
-                val response = apiRepository.getUsers(page = currentPage)
-                users.postValue(response.results)
-                isLoading = true
-            } catch (e: Exception) {
-                handleException(e)
-            } finally {
-                isLoading = false
-            }
-        }
-    }*/
 
     private fun handleException(e: Exception) {
         error.postValue("Error: ${e.message}")

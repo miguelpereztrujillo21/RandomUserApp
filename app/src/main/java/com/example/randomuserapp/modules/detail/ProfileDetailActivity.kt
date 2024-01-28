@@ -27,49 +27,44 @@ class ProfileDetailActivity : AppCompatActivity() {
 
     private fun initComponents(user: User?) {
         val fullName = Utils.getUserFullName(this, user)
-        initToolbar(fullName)
+       // initToolbar(fullName)
         setUpTextViews(user)
-        Glide.with(this).load(user?.picture?.medium).into(binding.profileImageDetailProfile)
+        Glide.with(this).load(user?.picture?.medium)
+            .into(binding.profileImageDetailProfile)
     }
 
-    private fun newTextViewDetail(iconResId: Int, title: String, value: String?) {
-        val profileTextViewBinding = ProfileTextViewBinding.inflate(LayoutInflater.from(this))
-        profileTextViewBinding.apply {
-            textViewIcon.setImageResource(iconResId)
-            textViewTitle.text = title
-            textViewValue.text = value
+/*    private fun initToolbar(fullname: String) {
+        binding.toolbar.apply {
+            title.text = fullname.uppercase()
+            backButton.setOnClickListener {
+                finish()
+            }
         }
-        binding.containerDetailProfile.addView(profileTextViewBinding.root, positionLayout)
-        positionLayout += 1
-    }
-
-    private fun initToolbar(fullname: String) {
-        binding.toolbar.title.text = fullname.uppercase()
-        binding.toolbar.backButton.setOnClickListener {
-            finish()
-        }
-    }
+    }*/
 
     private fun setUpTextViews(user: User?) {
-        newTextViewDetail(
+        binding.profileNameDetailProfile.setUpData(
             R.drawable.user_icon,
             getString(R.string.detail_name),
-            Utils.getUserFullName(this, user)
-        )
-        newTextViewDetail(R.drawable.mail_icon, getString(R.string.detail_email), user?.email)
-        newTextViewDetail(
+            Utils.getUserFullName(this,user))
+        binding.profileEmailDetailProfile.setUpData(
+            R.drawable.mail_icon, getString(R.string.detail_email), user?.email)
+        binding.profileGenderDetailProfile.setUpData(
             R.drawable.gender_icon,
             getString(R.string.detail_gender),
-            Utils.formarGender(this, user?.gender)
-        )
-        newTextViewDetail(
+            Utils.formarGender(this,user?.gender))
+        binding.profileRegDateDetailProfile.setUpData(
             R.drawable.calendar_icon,
             getString(R.string.detail_reg_date),
-            Utils.formatDateString(user?.registered?.date)
-        )
-        newTextViewDetail(R.drawable.phone_icon, getString(R.string.detail_phone), user?.phone)
+            Utils.formatDateString(user?.registered?.date))
+        binding.profilePhoneDetailProfile.setUpData(
+            R.drawable.phone_icon,
+            getString(R.string.detail_phone),
+            user?.cell)
+
         binding.textViewDirection.text = getString(R.string.detail_direccion)
     }
+
 
     private fun getExtras() {
         val userJSON = intent.extras?.getString(Constants.BUNDLE_KEY_USER)

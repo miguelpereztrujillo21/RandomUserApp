@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <data>
-
-        <variable
-            name="activityCharacterDetail"
-            type="com.example.randomuserapp.modules.detail.ProfileDetailActivity" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/background_detail_profile"
@@ -72,54 +65,38 @@
             android:id="@+id/profile_name_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_button_profile_detail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_button_profile_detail" />
-
+            app:layout_constraintEnd_toEndOf="parent"/>
         <com.example.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/profile_email_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_name_detail_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name_detail_profile" />
-
+            app:layout_constraintEnd_toEndOf="parent"/>
         <com.example.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/profile_gender_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_email_detail_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_email_detail_profile" />
-
+            app:layout_constraintEnd_toEndOf="parent"/>
         <com.example.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/profile_reg_date_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_gender_detail_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_gender_detail_profile" />
-
+            app:layout_constraintEnd_toEndOf="parent"/>
         <com.example.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/profile_phone_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_reg_date_detail_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_reg_date_detail_profile" />
-
-        <TextView
-            android:id="@+id/text_view_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/large_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_phone_detail_profile"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Dirección" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
-

@@ -64,13 +64,12 @@
 
         <View
             android:id="@+id/line_user_item"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/grey_light"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/" />
+            app:layout_constraintStart_toStartOf="@+id/email_user_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
