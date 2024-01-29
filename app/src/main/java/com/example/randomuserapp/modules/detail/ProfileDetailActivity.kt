@@ -20,7 +20,6 @@ import com.google.gson.Gson
 class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityDetailProfileBinding
-    private lateinit var mMap: GoogleMap
     private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

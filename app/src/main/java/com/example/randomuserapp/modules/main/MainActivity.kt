@@ -1,13 +1,10 @@
 package com.example.randomuserapp.modules.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
 import com.example.randomuserapp.api.ApiRepositoryImpl

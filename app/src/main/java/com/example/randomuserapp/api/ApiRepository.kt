@@ -4,6 +4,7 @@ import com.example.randomuserapp.models.UserResponse
 
 interface ApiRepository {
     suspend fun getUsers(
-        page: Int? = null
+        page: Int? = null,
+        results: Int? = null
     ): UserResponse
 }

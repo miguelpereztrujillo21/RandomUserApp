@@ -2,7 +2,6 @@ package com.example.randomuserapp.modules.main
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -17,7 +16,7 @@ import com.example.randomuserapp.models.User
 class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
 
-    private var error = MutableLiveData<String>()
+/*    private var error = MutableLiveData<String>()*/
     val users: LiveData<PagingData<User>> = Pager(
         config = PagingConfig(
             pageSize = PAGE_SIZE,
@@ -28,9 +27,9 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
         .cachedIn(viewModelScope)
         .asLiveData()
 
-    private fun handleException(e: Exception) {
+/*    private fun handleException(e: Exception) {
         error.postValue("Error: ${e.message}")
        // users.postValue(ArrayList())
 
-    }
+    }*/
 }

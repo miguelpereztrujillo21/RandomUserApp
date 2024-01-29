@@ -4,7 +4,7 @@ import com.example.randomuserapp.models.UserResponse
 import com.google.gson.JsonParser
 
 class ApiRepositoryImpl(private val api: Api) : ApiRepository {
-    override suspend fun getUsers(page: Int?): UserResponse {
+    override suspend fun getUsers(page: Int?, results:Int?): UserResponse {
         return try {
             val response = api.getUsers(page)
             if (response.isSuccessful) {
@@ -12,7 +12,7 @@ class ApiRepositoryImpl(private val api: Api) : ApiRepository {
             } else {
                 val jsonObject = JsonParser().parse(response.errorBody()?.string()).asJsonObject
                 val errorValue = jsonObject.get("error").asString
-                throw Exception("Error en la solicitud: ${response.code()}")
+                throw Exception("Error en la solicitud: ${response.code()} + $errorValue")
             }
         } catch (e: Exception) {
             throw e

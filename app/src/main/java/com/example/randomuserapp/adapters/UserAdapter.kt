@@ -26,7 +26,7 @@ class UserAdapter(private val context: Context, private val clickListener: Click
 
     class ViewHolder private constructor(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
+        
         fun bind(
             context: Context, item: User, clickListener: ClickListener
         ) {
@@ -35,9 +35,8 @@ class UserAdapter(private val context: Context, private val clickListener: Click
                 context.getString(R.string.user_full_name, item.name.first, item.name.last)
             binding.emailUserItem.text = item.email
             binding.containerUserItem.setOnClickListener {
-                clickListener.onClick(adapterPosition)
+                clickListener.onClick(absoluteAdapterPosition)
             }
-
         }
 
         companion object {

@@ -8,6 +8,9 @@ import retrofit2.http.Query
 interface Api {
 
     @GET("api/")
-    suspend fun getUsers(@Query("page") page: Int? = null): Response<UserResponse>
+    suspend fun getUsers(
+        @Query("page") page: Int? = null,
+        @Query("results") results: Int? = null
+    ): Response<UserResponse>
 
 }
