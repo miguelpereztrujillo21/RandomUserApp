@@ -1,6 +1,9 @@
 package com.example.randomuserapp.helpers
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.randomuserapp.R
 import com.example.randomuserapp.models.User
 import java.text.ParseException
@@ -31,6 +34,17 @@ object Utils {
             Constants.MALE_KEY -> context.getString(R.string.simple_male)
             Constants.FEMALE_KEY -> context.getString(R.string.simple_female)
             else -> gender
+        }
+    }
+
+    fun changueColorDrawableWhite(context: Context, drawable: Drawable){
+        drawable.let {
+            DrawableCompat.setTint(
+                it, ContextCompat.getColor(
+                    context,
+                    R.color.white
+                )
+            )
         }
     }
 }

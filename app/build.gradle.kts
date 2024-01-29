@@ -34,6 +34,7 @@ android {
             isDebuggable = true
             signingConfig = signingConfigs.getByName("debug")
             buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
+            buildConfigField("String", "MAPS_KEY", "\"${findProperty("MAPS_API_KEY")}\"")
         }
         debug {
             isMinifyEnabled = false
@@ -44,6 +45,7 @@ android {
             )
             signingConfig = signingConfigs.getByName("debug")
             buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
+            buildConfigField("String", "MAPS_KEY", "\"AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA\"")
         }
     }
     compileOptions {
@@ -69,7 +71,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //Pagin
-    implementation ("androidx.paging:paging-runtime:3.2.1")
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
     //Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -78,6 +80,19 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    // Maps SDK for Android
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
 
+}
 
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+
+    }
 }

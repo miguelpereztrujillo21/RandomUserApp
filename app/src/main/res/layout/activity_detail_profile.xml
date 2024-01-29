@@ -25,8 +25,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <include
+            android:id="@+id/toolbar_profile_detail"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_user_item"
+            android:id="@+id/card_detail_profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="@dimen/mid_margin"
@@ -52,9 +62,9 @@
             android:id="@+id/camera_button_profile_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/simple_todo"
             android:src="@drawable/photo_icon"
-            app:layout_constraintBottom_toTopOf="@+id/profile_name_detail_profile"
+            app:layout_constraintBottom_toTopOf="@+id/name_detail_profile"
             app:layout_constraintEnd_toStartOf="@+id/edit_button_profile_detail"
             app:layout_constraintTop_toBottomOf="@+id/background_detail_profile" />
 
@@ -62,14 +72,14 @@
             android:id="@+id/edit_button_profile_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/simple_todo"
             android:src="@drawable/edit_icon"
-            app:layout_constraintBottom_toTopOf="@+id/profile_name_detail_profile"
+            app:layout_constraintBottom_toTopOf="@+id/name_detail_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/background_detail_profile" />
 
         <com.example.randomuserapp.custom_views.ProfileTextView
-            android:id="@+id/profile_name_detail_profile"
+            android:id="@+id/name_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,36 +87,36 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_button_profile_detail" />
 
         <com.example.randomuserapp.custom_views.ProfileTextView
-            android:id="@+id/profile_email_detail_profile"
+            android:id="@+id/email_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name_detail_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/name_detail_profile" />
 
         <com.example.randomuserapp.custom_views.ProfileTextView
-            android:id="@+id/profile_gender_detail_profile"
+            android:id="@+id/gender_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_email_detail_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/email_detail_profile" />
 
         <com.example.randomuserapp.custom_views.ProfileTextView
-            android:id="@+id/profile_reg_date_detail_profile"
+            android:id="@+id/reg_date_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_gender_detail_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/gender_detail_profile" />
 
         <com.example.randomuserapp.custom_views.ProfileTextView
-            android:id="@+id/profile_phone_detail_profile"
+            android:id="@+id/phone_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_reg_date_detail_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/reg_date_detail_profile" />
 
         <TextView
             android:id="@+id/text_view_direction"
@@ -115,10 +125,21 @@
             android:layout_marginStart="@dimen/large_margin"
             android:layout_marginTop="@dimen/small_margin"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_phone_detail_profile"
+            app:layout_constraintTop_toBottomOf="@+id/phone_detail_profile"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Dirección" />
 
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_detail_profile"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="@dimen/mid_large_margin"
+            android:apiKey="@string/google_maps_api_key"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_direction" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
