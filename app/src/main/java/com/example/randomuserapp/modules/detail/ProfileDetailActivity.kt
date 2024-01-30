@@ -25,7 +25,6 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setContentView(this, R.layout.activity_detail_profile)
-
         binding.lifecycleOwner = this
 
         getExtras()
@@ -61,17 +60,17 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setUpTextViews() {
         binding.nameDetailProfile.setUpData(
-            R.drawable.user_icon,
+            R.drawable.ic_user,
             getString(R.string.detail_name),
             Utils.getUserFullName(this, user)
         )
         binding.emailDetailProfile.setUpData(
-            R.drawable.mail_icon,
+            R.drawable.ic_mail,
             getString(R.string.detail_email),
             user?.email
         )
         binding.genderDetailProfile.setUpData(
-            R.drawable.gender_icon,
+            R.drawable.ic_gender,
             getString(R.string.detail_gender),
             Utils.formarGender(this, user?.gender)
         )
@@ -81,14 +80,12 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             Utils.formatDateString(user?.registered?.date)
         )
         binding.phoneDetailProfile.setUpData(
-            R.drawable.phone_icon,
+            R.drawable.ic_phone,
             getString(R.string.detail_phone),
             user?.cell
         )
         binding.textViewDirection.text = getString(R.string.detail_direccion)
     }
-
-
 
     private fun getExtras() {
         val userJSON = intent.extras?.getString(Constants.BUNDLE_KEY_USER)
@@ -102,7 +99,6 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             googleMap.addMarker(MarkerOptions().position(latLng))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 6f))
         }
-
     }
 
     override fun onDestroy() {

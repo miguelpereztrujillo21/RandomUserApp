@@ -6,7 +6,7 @@ import com.google.gson.JsonParser
 class ApiRepositoryImpl(private val api: Api) : ApiRepository {
     override suspend fun getUsers(page: Int?, results:Int?): UserResponse {
         return try {
-            val response = api.getUsers(page)
+            val response = api.getUsers(page,results)
             if (response.isSuccessful) {
                 response.body() ?: UserResponse()
             } else {
@@ -18,4 +18,5 @@ class ApiRepositoryImpl(private val api: Api) : ApiRepository {
             throw e
         }
     }
+
 }

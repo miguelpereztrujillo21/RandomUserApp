@@ -26,7 +26,7 @@ class UserAdapter(private val context: Context, private val clickListener: Click
 
     class ViewHolder private constructor(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        
+
         fun bind(
             context: Context, item: User, clickListener: ClickListener
         ) {

@@ -4,6 +4,7 @@
     <string name="simple_contacts">CONTACTOS</string>
     <string name="simple_male">Hombre</string>
     <string name="simple_female">Mujer</string>
+    <string name="simple_search_by_email">Buscar por email</string>
 
     <string name="detail_name">Nombre y apellidos</string>
     <string name="detail_email">Email</string>

@@ -2,22 +2,24 @@ package com.example.randomuserapp.modules.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
 import com.example.randomuserapp.api.ApiRepositoryImpl
-import com.example.randomuserapp.api.RetrofitApiService
 import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
+import com.example.randomuserapp.helpers.PopupMenuHelper
+import com.example.randomuserapp.helpers.RetrofitHelper
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private val apiRepository = ApiRepositoryImpl(RetrofitApiService.getInstance())
+    private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
     private val viewModelFactory = MainViewModelFactory(apiRepository)
 
     private var adapter: UserAdapter? = null
@@ -38,11 +40,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.users.observe(this){
             adapter?.submitData(lifecycle,it)
         }
+        viewModel.filterEmail.observe(this){
+            viewModel.update()
+        }
     }
 
     private fun initComponents(){
         setUpRecycler()
-        binding.toolbar.title.text = getString(R.string.simple_contacts)
+        initToolbar()
     }
     private fun setUpRecycler() {
         adapter = UserAdapter(this, object : UserAdapter.ClickListener {
@@ -58,6 +63,18 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.recyclerMain.adapter = adapter
+    }
+
+    private fun initToolbar() {
+        binding.toolbar.apply {
+            title.text = getString(R.string.simple_contacts)
+            optionsButton.setOnClickListener {
+                PopupMenuHelper.showMenu(applicationContext, it, R.menu.users_menu)
+                PopupMenuHelper.onEmailClickListener={
+                    binding.searchContainerMain.visibility =  View.VISIBLE
+                }
+            }
+        }
     }
 
 

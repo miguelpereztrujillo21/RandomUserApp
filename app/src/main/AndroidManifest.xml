@@ -25,6 +25,7 @@
         </activity>
         <activity
             android:name=".modules.detail.ProfileDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.google.android.gms.version"
@@ -33,6 +34,5 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA" />
     </application>
-
 
 </manifest>
