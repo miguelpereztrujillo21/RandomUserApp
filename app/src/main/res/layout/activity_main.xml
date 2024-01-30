@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="mainViewModel"
             type="com.example.randomuserapp.modules.main.MainViewModel" />
@@ -41,6 +40,10 @@
                 android:hint="@string/simple_search_by_email"
                 android:text="@={mainViewModel.filterEmail}" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <include
+            android:id="@+id/layout_filters"
+            layout="@layout/filters" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_main"

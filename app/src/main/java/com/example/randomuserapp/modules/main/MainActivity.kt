@@ -14,6 +14,7 @@ import com.example.randomuserapp.helpers.Constants
 import com.example.randomuserapp.helpers.PopupMenuHelper
 import com.example.randomuserapp.helpers.RetrofitHelper
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
+import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
     private val viewModelFactory = MainViewModelFactory(apiRepository)
-
     private var adapter: UserAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,19 +36,39 @@ class MainActivity : AppCompatActivity() {
         initComponents()
     }
 
-    private fun initObservers(){
-        viewModel.users.observe(this){
-            adapter?.submitData(lifecycle,it)
+    private fun initObservers() {
+        viewModel.users.observe(this) {
+            adapter?.submitData(lifecycle, it)
         }
-        viewModel.filterEmail.observe(this){
+        viewModel.filterEmail.observe(this) {
+            viewModel.update()
+        }
+        viewModel.filterGender.observe(this) {
             viewModel.update()
         }
     }
 
-    private fun initComponents(){
+    private fun initComponents() {
         setUpRecycler()
         initToolbar()
+        initChips()
     }
+
+    private fun initToolbar() {
+        binding.toolbar.apply {
+            title.text = getString(R.string.simple_contacts)
+            optionsButton.setOnClickListener {
+                PopupMenuHelper.showMenu(applicationContext, it, R.menu.users_menu)
+                PopupMenuHelper.onEmailClickListener = {
+                    binding.searchContainerMain.visibility = View.VISIBLE
+                }
+                PopupMenuHelper.onGenderClickListener = {
+                    binding.layoutFilters.chipGroupGenderMain.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
     private fun setUpRecycler() {
         adapter = UserAdapter(this, object : UserAdapter.ClickListener {
             override fun onClick(position: Int) {
@@ -65,17 +85,14 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerMain.adapter = adapter
     }
 
-    private fun initToolbar() {
-        binding.toolbar.apply {
-            title.text = getString(R.string.simple_contacts)
-            optionsButton.setOnClickListener {
-                PopupMenuHelper.showMenu(applicationContext, it, R.menu.users_menu)
-                PopupMenuHelper.onEmailClickListener={
-                    binding.searchContainerMain.visibility =  View.VISIBLE
-                }
-            }
-        }
+    private fun initChips() {
+        initChip(binding.layoutFilters.chipGenderMaleMain, Constants.MALE_KEY)
+        initChip(binding.layoutFilters.chipGenderFemaleMain, Constants.FEMALE_KEY)
     }
 
-
+    private fun initChip(chip: Chip, filter: String) {
+        chip.setOnCheckedChangeListener { _, _ ->
+            viewModel.filterGender.value = filter
+        }
+    }
 }

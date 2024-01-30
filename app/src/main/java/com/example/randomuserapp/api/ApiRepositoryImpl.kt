@@ -4,9 +4,9 @@ import com.example.randomuserapp.models.UserResponse
 import com.google.gson.JsonParser
 
 class ApiRepositoryImpl(private val api: Api) : ApiRepository {
-    override suspend fun getUsers(page: Int?, results:Int?): UserResponse {
+    override suspend fun getUsers(page: Int?, results:Int?, gender: String?): UserResponse {
         return try {
-            val response = api.getUsers(page,results)
+            val response = api.getUsers(page,results,gender)
             if (response.isSuccessful) {
                 response.body() ?: UserResponse()
             } else {

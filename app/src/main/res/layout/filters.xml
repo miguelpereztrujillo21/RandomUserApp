@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_gender_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/mid_margin"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_gender_male_main"
+                style="@style/chip_style"
+                android:text="@string/simple_male"
+                app:chipIcon="@drawable/ic_male" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_gender_female_main"
+                style="@style/chip_style"
+                android:text="@string/simple_female"
+                app:chipIcon="@drawable/ic_female" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+</layout>

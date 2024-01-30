@@ -10,7 +10,7 @@ import com.example.randomuserapp.R
 object PopupMenuHelper : PopupMenu.OnMenuItemClickListener {
 
      var onEmailClickListener: (() -> Unit)? = null
-     var onNameClickListener: (() -> Unit)? = null
+     var onGenderClickListener: (() -> Unit)? = null
 
     fun showMenu(context: Context, v: View, menuResId: Int) {
         PopupMenu(context, v).apply {
@@ -27,8 +27,8 @@ object PopupMenuHelper : PopupMenu.OnMenuItemClickListener {
                 true
             }
 
-            R.id.menu_name -> {
-                onNameClickListener?.invoke()
+            R.id.menu_gender -> {
+                onGenderClickListener?.invoke()
                 true
             }
 

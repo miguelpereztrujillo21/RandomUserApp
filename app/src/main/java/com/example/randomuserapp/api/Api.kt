@@ -10,7 +10,8 @@ interface Api {
     @GET("api/")
     suspend fun getUsers(
         @Query("page") page: Int? = null,
-        @Query("results") results: Int? = null
+        @Query("results") results: Int? = null,
+        @Query("gender") gender: String? = null
     ): Response<UserResponse>
 
 }

@@ -17,6 +17,7 @@ import com.example.randomuserapp.models.User
 class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
     val filterEmail = MutableLiveData<String>()
+    val filterGender = MutableLiveData<String>()
     private val _users = MutableLiveData<PagingData<User>>()
     val users: LiveData<PagingData<User>> get() = _users
 
@@ -26,19 +27,23 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
     private fun createPagerFlow(): MutableLiveData<PagingData<User>> {
         val liveData = MutableLiveData<PagingData<User>>()
-        liveData.value = PagingData.empty()  // o cualquier otro valor inicial no nulo
-        Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { UserPagingSource(apiRepository, filterEmail.value) }
-        ).flow
-            .cachedIn(viewModelScope)
-            .asLiveData()
-            .observeForever {
-                liveData.value = it
-            }
+        try {
+            Pager(
+                config = PagingConfig(
+                    pageSize = PAGE_SIZE,
+                    enablePlaceholders = false
+                ),
+                pagingSourceFactory = { UserPagingSource(apiRepository, filterEmail.value, filterGender.value)}
+            ).flow
+                .cachedIn(viewModelScope)
+                .asLiveData()
+                .observeForever {
+                    liveData.value = it
+                }
+        } catch (e: Exception) {
+
+            liveData.value = PagingData.empty()
+        }
         return liveData
     }
     fun update() {

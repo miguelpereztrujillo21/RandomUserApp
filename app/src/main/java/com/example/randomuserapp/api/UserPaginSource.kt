@@ -7,7 +7,8 @@ import kotlin.math.max
 
 class UserPagingSource(
     private val apiRepository: ApiRepository,
-    private val filterEmail: String?
+    private val filterEmail: String?,
+    private val filterGender: String?
 ) : PagingSource<Int, User>() {
 
     private val startingKey = 1
@@ -17,7 +18,7 @@ class UserPagingSource(
         val start = params.key ?: startingKey
 
         return try {
-            val response = apiRepository.getUsers(start, 10)
+            val response = apiRepository.getUsers(start, 10,filterGender)
             val users = response.results ?: emptyList()
 
             val filteredUsers = users.filter {
@@ -40,11 +41,6 @@ class UserPagingSource(
 
         return ensureValidKey(user.id.value.toInt() - (state.config.pageSize / 2))
     }
-
-/*    fun refresh() {
-        uniqueUsers.clear()
-        invalidate()
-    }*/
 
     private fun ensureValidKey(key: Int) = max(startingKey, key)
 }

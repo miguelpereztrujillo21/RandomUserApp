@@ -8,11 +8,9 @@
         android:icon="@drawable/ic_mail"
         android:title="@string/detail_email"
        />
-
     <item
-        android:id="@+id/menu_name"
-        android:icon="@drawable/ic_user"
-        android:title="@string/detail_name"
-        />
+        android:id="@+id/menu_gender"
+        android:icon="@drawable/ic_gender"
+        android:title="@string/detail_gender"/>
 </menu>
 
