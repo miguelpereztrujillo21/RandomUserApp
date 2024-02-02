@@ -17,6 +17,7 @@ import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
+import java.net.UnknownHostException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -46,10 +47,14 @@ class MainActivity : AppCompatActivity() {
             //viewModel.update()
         }
         viewModel.filterGender.observe(this) {
-           //viewModel.update()
+            //viewModel.update()
         }
-        viewModel.error.observe(this){
-
+        viewModel.error.observe(this) {
+            if (it is UnknownHostException) {
+                Utils.showDialog(this, this, false, getString(R.string.error_not_internet))
+            } else {
+                Utils.showDialog(this, this, false, getString(R.string.error_dialog_description))
+            }
         }
     }
 

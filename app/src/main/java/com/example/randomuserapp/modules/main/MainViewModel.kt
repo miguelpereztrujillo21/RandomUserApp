@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
@@ -28,14 +29,14 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
     val filterGender = MutableLiveData<String>()
     private val _users = MutableLiveData<PagingData<User>>()
     val users: LiveData<PagingData<User>> get() = _users
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<Throwable>()
+    val error: LiveData<Throwable> = _error
 
     fun createPagerFlow() {
         val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
-            throwable.printStackTrace()
+            handleException(throwable)
         }
-        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
             try {
                 val userPagingSource =
                     UserPagingSource(apiRepository, filterEmail.value, filterGender.value)
@@ -54,13 +55,18 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
                         _users.postValue(pagingData)
                     }
             } catch (e: Throwable) {
-                Log.e("MyApp", "Error en el catch del ViewModel", e)
+                Log.e("RandomUserApp", "Error en el catch del ViewModel", e)
+                handleException(e)
             }
         }
     }
 
-    private fun handleException(exception: Throwable) {
-        _error.postValue(exception.message)
+    private fun handleException(e: Throwable) {
+        if (e is UnknownHostException){
+            _error.postValue(e)
+        }
+
+
     }
 
     /*    fun update() {

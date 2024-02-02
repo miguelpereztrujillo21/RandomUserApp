@@ -53,11 +53,12 @@ object Utils {
     fun showDialog(
         context: Context,
         activity: Activity,
-        finishBtn: Boolean
+        finishBtn: Boolean,
+        description: String,
     ) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(context.getString(R.string.error_dialog_title))
-        builder.setMessage(context.getString(R.string.error_dialog_description))
+        builder.setMessage(description)
         if (finishBtn){
             builder.setPositiveButton(context.getString(R.string.error_dialog_close_btn)) { _, _ ->
                 activity.finishAffinity()

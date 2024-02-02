@@ -23,7 +23,6 @@ class UserPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val start = params.key ?: startingKey
-
         return withContext(Dispatchers.IO) { // Ejecutar en un hilo de E/S
             try {
                 val response = apiRepository.getUsers(start, 10, filterGender)

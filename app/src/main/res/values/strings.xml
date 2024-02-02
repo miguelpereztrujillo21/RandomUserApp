@@ -22,4 +22,7 @@
     <string name="error_dialog_description">Prueba mas tarde</string>
     <string name="error_dialog_close_btn">Cerrar</string>
     <string name="error_dialog_acept_btn_not_results">Aceptar</string>
+    <string name="error_not_internet">Comprueba tu conexión a internet</string>
+
+
 </resources>
