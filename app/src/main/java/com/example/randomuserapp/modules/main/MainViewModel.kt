@@ -34,6 +34,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
 
     fun getUsersPagerFlow() {
         val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
+            Log.e("RandomUserApp", "Error en la coroutine del MainViewModel",throwable)
             handleException(throwable)
         }
         CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
@@ -65,11 +66,5 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
         if (e is UnknownHostException){
             _error.postValue(e)
         }
-
-
     }
-
-    /*    fun update() {
-            _users.value = createPagerFlow().value
-        }*/
 }
