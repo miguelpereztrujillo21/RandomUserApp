@@ -13,6 +13,7 @@ import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
 import com.example.randomuserapp.helpers.PopupMenuHelper
 import com.example.randomuserapp.helpers.RetrofitHelper
+import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivity = this
         binding.mainViewModel = viewModel
 
+        viewModel.createPagerFlow()
         initObservers()
         initComponents()
     }
@@ -41,10 +43,13 @@ class MainActivity : AppCompatActivity() {
             adapter?.submitData(lifecycle, it)
         }
         viewModel.filterEmail.observe(this) {
-            viewModel.update()
+            //viewModel.update()
         }
         viewModel.filterGender.observe(this) {
-            viewModel.update()
+           //viewModel.update()
+        }
+        viewModel.error.observe(this){
+
         }
     }
 

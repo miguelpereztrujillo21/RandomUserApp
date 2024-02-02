@@ -1,5 +1,7 @@
 package com.example.randomuserapp.helpers
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
@@ -46,5 +48,27 @@ object Utils {
                 )
             )
         }
+    }
+
+    fun showDialog(
+        context: Context,
+        activity: Activity,
+        finishBtn: Boolean
+    ) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.error_dialog_title))
+        builder.setMessage(context.getString(R.string.error_dialog_description))
+        if (finishBtn){
+            builder.setPositiveButton(context.getString(R.string.error_dialog_close_btn)) { _, _ ->
+                activity.finishAffinity()
+            }
+        }else{
+            builder.setPositiveButton(context.getString(R.string.error_dialog_acept_btn_not_results)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

@@ -12,10 +12,14 @@
     <string name="detail_reg_date">Fecha de registro</string>
     <string name="detail_phone">Teléfono</string>
     <string name="detail_direccion">Dirección</string>
-
-
+    
     <string name="back_button_content_desc">Back Button</string>
     <string name="options_button_content_desc">Options Button</string>
     <string name="simple_todo">TODO</string>
     <string name="google_maps_api_key">AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA</string>
+
+    <string name="error_dialog_title">Error de conexión</string>
+    <string name="error_dialog_description">Prueba mas tarde</string>
+    <string name="error_dialog_close_btn">Cerrar</string>
+    <string name="error_dialog_acept_btn_not_results">Aceptar</string>
 </resources>

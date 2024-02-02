@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_gender_main"
             android:layout_width="wrap_content"
@@ -23,7 +22,6 @@
                 style="@style/chip_style"
                 android:text="@string/simple_female"
                 app:chipIcon="@drawable/ic_female" />
-
 
         </com.google.android.material.chip.ChipGroup>
 
