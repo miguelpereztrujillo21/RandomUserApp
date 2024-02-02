@@ -32,7 +32,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
 
-    fun createPagerFlow() {
+    fun getUsersPagerFlow() {
         val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
             handleException(throwable)
         }

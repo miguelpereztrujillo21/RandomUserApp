@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivity = this
         binding.mainViewModel = viewModel
 
-        viewModel.createPagerFlow()
+        viewModel.getUsersPagerFlow()
         initObservers()
         initComponents()
     }
@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
             adapter?.submitData(lifecycle, it)
         }
         viewModel.filterEmail.observe(this) {
-            //viewModel.update()
+            viewModel.getUsersPagerFlow()
         }
         viewModel.filterGender.observe(this) {
-            //viewModel.update()
+            viewModel.getUsersPagerFlow()
         }
         viewModel.error.observe(this) {
             if (it is UnknownHostException) {
