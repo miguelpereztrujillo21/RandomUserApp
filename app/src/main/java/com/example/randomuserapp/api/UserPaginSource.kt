@@ -1,15 +1,11 @@
 package com.example.randomuserapp.api
 
-
-
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.randomuserapp.models.User
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
 import kotlin.math.max
 
 class UserPagingSource(

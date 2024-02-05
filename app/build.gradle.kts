@@ -48,6 +48,7 @@ android {
             buildConfigField("String", "MAPS_KEY", "\"AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -59,7 +60,6 @@ android {
 
 dependencies {
 
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -67,15 +67,26 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+    //Truth
+    testImplementation("com.google.truth:truth:1.1.3")
+    //MockWebServer
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    //Mockito
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    androidTestImplementation("org.mockito:mockito-core:5.5.0")
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //Pagin
-    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    testImplementation("androidx.paging:paging-runtime-ktx:3.2.1")
     //Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     //Livecycle
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //Glide
@@ -86,6 +97,7 @@ dependencies {
 
 }
 
+
 buildscript {
     repositories {
         google()
@@ -93,6 +105,6 @@ buildscript {
     }
     dependencies {
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
-
+        classpath("com.squareup.okhttp3:mockwebserver:4.11.0")
     }
 }
