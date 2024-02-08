@@ -74,13 +74,22 @@ class MainViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testGetUsersPagerFlowFailure(): Unit = runBlocking {
-        //TODO
-        val mockResponse = createErrorResponse()
+        val mockResponse = createFailtureResponse()
         mockWebServer.enqueue(mockResponse)
         viewModel.getUsersPagerFlow()
-        delay(1000)
+        delay(2000)
 
-        assertThat(viewModel.error.value).isNotNull()
+
+
+        val userPagingSource = UserPagingSource(apiRepository, viewModel.filterEmail.value, viewModel.filterGender.value)
+        val loadResult = userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  PAGE_SIZE, false))
+        if( loadResult is PagingSource.LoadResult.Error){
+            val exception = loadResult.throwable
+            assertThat(exception).isNotNull()
+            assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
+            assertThat(viewModel.error.value).isNotNull()
+        }
+
     }
 
 
@@ -666,10 +675,10 @@ class MainViewModelTest {
             """.trimIndent()
         return MockResponse().setResponseCode(200).setBody(json)
     }
-    private fun createErrorResponse(): MockResponse{
+    private fun createFailtureResponse(): MockResponse{
         val json = """ 
             {
-              error: "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."
+              "error": "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."
             }
         """.trimIndent()
         return MockResponse().setResponseCode(404).setBody(json)
