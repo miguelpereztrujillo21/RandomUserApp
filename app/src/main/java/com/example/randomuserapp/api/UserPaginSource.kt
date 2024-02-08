@@ -33,8 +33,8 @@ class UserPagingSource(
                     nextKey = if (users.isNotEmpty()) start + params.loadSize else null
                 )
             } catch (e: Exception) {
-                Log.e("RamdomUserApp","Error en UserPaginPaginSource",e)
-                throw  e
+//                Log.e("RamdomUserApp","Error en UserPaginPaginSource",e)
+                LoadResult.Error(e)
             }
         }
     }

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.LoadState
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
 import com.example.randomuserapp.api.ApiRepositoryImpl
@@ -42,6 +43,15 @@ class MainActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.users.observe(this) {
             adapter?.submitData(lifecycle, it)
+            adapter?.addLoadStateListener { loaderState ->
+                val refreshState = loaderState.refresh
+                if (refreshState is LoadState.Error) {
+                    val errorMessage = refreshState.error.localizedMessage
+                    viewModel.handleException(Throwable(errorMessage))
+                }
+                val itemCount = adapter?.snapshot()
+
+            }
         }
         viewModel.filterEmail.observe(this) {
             viewModel.getUsersPagerFlow()
@@ -101,8 +111,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initChip(chip: Chip, filter: String) {
-        chip.setOnCheckedChangeListener { _, _ ->
-            viewModel.filterGender.value = filter
+        chip.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onChipCheckedChanged(isChecked,filter)
         }
     }
 }

@@ -3,14 +3,19 @@ package com.example.randomuserapp.modules.main
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
+import androidx.lifecycle.map
+import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.example.randomuserapp.api.Api
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.api.UserPagingSource
+import com.example.randomuserapp.models.User
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
@@ -25,6 +30,8 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.flow.collect
+
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -59,10 +66,9 @@ class MainViewModelTest {
         delay(1000)
 
         assertThat(viewModel.users.value).isNotNull()
-        val userPagingSource = UserPagingSource(apiRepository, viewModel.filterEmail.value, viewModel.filterGender.value)
 
         val loadParams = PagingSource.LoadParams.Refresh(key = 0, loadSize = PAGE_SIZE, placeholdersEnabled = false)
-        val loadResult = userPagingSource.load(loadParams)
+        val loadResult = viewModel.userPagingSource.load(loadParams)
         val firstUser = (loadResult as? PagingSource.LoadResult.Page)?.data?.firstOrNull()
 
         assertThat(firstUser?.email).isNotNull()
@@ -79,17 +85,14 @@ class MainViewModelTest {
         viewModel.getUsersPagerFlow()
         delay(2000)
 
-
-
-        val userPagingSource = UserPagingSource(apiRepository, viewModel.filterEmail.value, viewModel.filterGender.value)
-        val loadResult = userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  PAGE_SIZE, false))
+        val loadResult = viewModel.userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  PAGE_SIZE, false))
         if( loadResult is PagingSource.LoadResult.Error){
             val exception = loadResult.throwable
             assertThat(exception).isNotNull()
             assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
+            delay(2000)
             assertThat(viewModel.error.value).isNotNull()
         }
-
     }
 
 

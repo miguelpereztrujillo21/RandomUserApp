@@ -31,6 +31,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
     val users: LiveData<PagingData<User>> get() = _users
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
+    lateinit var userPagingSource: UserPagingSource
 
     fun getUsersPagerFlow() {
         val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
@@ -39,7 +40,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
         }
         CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
             try {
-                val userPagingSource =
+                 userPagingSource =
                     UserPagingSource(apiRepository, filterEmail.value, filterGender.value)
                 Pager(
                     config = PagingConfig(
@@ -51,6 +52,7 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
                     .cachedIn(this)
                     .catch { e ->
                         Log.e("RandomUserApp", "Error en el Pager", e)
+                        handleException(e)
                     }
                     .collectLatest { pagingData ->
                         _users.postValue(pagingData)
@@ -62,9 +64,10 @@ class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
         }
     }
 
-    private fun handleException(e: Throwable) {
-        if (e is UnknownHostException){
+    fun handleException(e: Throwable) {
             _error.postValue(e)
-        }
+    }
+    fun onChipCheckedChanged(isChecked: Boolean, filter: String) {
+        filterGender.value = if (isChecked) filter else ""
     }
 }
