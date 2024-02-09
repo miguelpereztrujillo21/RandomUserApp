@@ -1,21 +1,20 @@
-package com.example.randomuserapp.modules.main
+package com.example.randomuserapp.api
 
-
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import android.nfc.tech.MifareUltralight
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
-import com.example.randomuserapp.api.Api
-import com.example.randomuserapp.api.ApiRepositoryImpl
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,16 +24,15 @@ import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 @RunWith(MockitoJUnitRunner::class)
-class MainViewModelTest {
+class UserPagingSourceTest{
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var apiRepository: ApiRepositoryImpl
-    private lateinit var viewModel: MainViewModel
+    private lateinit var userPagingSource: UserPagingSource
 
     @ExperimentalCoroutinesApi
     @Before
@@ -46,44 +44,41 @@ class MainViewModelTest {
             Retrofit.Builder().baseUrl(mockWebServer.url("/"))//Pass any base url like this
                 .addConverterFactory(GsonConverterFactory.create()).build().create(Api::class.java)
         )
-        viewModel = MainViewModel(apiRepository)
+
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testGetUsersPagerFlowSuccess(): Unit = runBlocking {
+    fun testLoadDataFromPagingSourceSuccess(): Unit = runBlocking {
         val mockResponse = createSuccessResponse()
         mockWebServer.enqueue(mockResponse)
-        viewModel.getUsersPagerFlow()
+        userPagingSource = UserPagingSource(apiRepository,null,null)
         delay(1000)
 
-        assertThat(viewModel.users.value).isNotNull()
+        val loadParams = PagingSource.LoadParams.Refresh(key = 0, loadSize = MifareUltralight.PAGE_SIZE, placeholdersEnabled = false)
+        val loadResult = userPagingSource.load(loadParams)
 
-        val loadParams = PagingSource.LoadParams.Refresh(key = 0, loadSize = PAGE_SIZE, placeholdersEnabled = false)
-        val loadResult = viewModel.userPagingSource.load(loadParams)
-        val firstUser = (loadResult as? PagingSource.LoadResult.Page)?.data?.firstOrNull()
+        val dataList = (loadResult as? PagingSource.LoadResult.Page)?.data
+        assertThat(dataList).isNotEmpty()
 
+        val firstUser = dataList?.firstOrNull()
         assertThat(firstUser?.email).isNotNull()
         assertThat(firstUser?.email).isEqualTo("hunter.slawa@example.com")
-        assertThat(viewModel.error.value).isNull()
     }
-
 
     @ExperimentalCoroutinesApi
     @Test
     fun testGetUsersPagerFlowFailure(): Unit = runBlocking {
-        val mockResponse = createFailtureResponse()
+       val mockResponse = createFailtureResponse()
         mockWebServer.enqueue(mockResponse)
-        viewModel.getUsersPagerFlow()
+        userPagingSource = UserPagingSource(apiRepository,null,null)
         delay(2000)
 
-        val loadResult = viewModel.userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  PAGE_SIZE, false))
+        val loadResult = userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  MifareUltralight.PAGE_SIZE, false))
         if( loadResult is PagingSource.LoadResult.Error){
             val exception = loadResult.throwable
             assertThat(exception).isNotNull()
             assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
-            delay(2000)
-            assertThat(viewModel.error.value).isNotNull()
         }
     }
 
@@ -670,7 +665,7 @@ class MainViewModelTest {
             """.trimIndent()
         return MockResponse().setResponseCode(200).setBody(json)
     }
-    private fun createFailtureResponse(): MockResponse{
+    private fun createFailtureResponse(): MockResponse {
         val json = """ 
             {
               "error": "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."

@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                     val errorMessage = refreshState.error.localizedMessage
                     viewModel.handleException(Throwable(errorMessage))
                 }
-                val itemCount = adapter?.snapshot()
 
             }
         }
