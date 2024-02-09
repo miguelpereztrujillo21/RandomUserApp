@@ -68,8 +68,8 @@ class UserPagingSourceTest{
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testGetUsersPagerFlowFailure(): Unit = runBlocking {
-       val mockResponse = createFailtureResponse()
+    fun whenGetLoadResulError(): Unit = runBlocking {
+       val mockResponse = createErrorResponse()
         mockWebServer.enqueue(mockResponse)
         userPagingSource = UserPagingSource(apiRepository,null,null)
         delay(2000)
@@ -81,7 +81,6 @@ class UserPagingSourceTest{
             assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
         }
     }
-
 
     @ExperimentalCoroutinesApi
     @After
@@ -665,7 +664,7 @@ class UserPagingSourceTest{
             """.trimIndent()
         return MockResponse().setResponseCode(200).setBody(json)
     }
-    private fun createFailtureResponse(): MockResponse {
+    private fun createErrorResponse(): MockResponse {
         val json = """ 
             {
               "error": "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."

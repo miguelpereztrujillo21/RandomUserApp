@@ -3,7 +3,7 @@ package com.example.randomuserapp.modules.main
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.paging.PagingSource
+import androidx.paging.PagingSource.*
 import com.example.randomuserapp.api.Api
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.google.common.truth.Truth.assertThat
@@ -24,7 +24,6 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
@@ -59,9 +58,10 @@ class MainViewModelTest {
 
         assertThat(viewModel.users.value).isNotNull()
 
-        val loadParams = PagingSource.LoadParams.Refresh(key = 0, loadSize = PAGE_SIZE, placeholdersEnabled = false)
+        val loadParams =
+            LoadParams.Refresh(key = 0, loadSize = PAGE_SIZE, placeholdersEnabled = false)
         val loadResult = viewModel.userPagingSource.load(loadParams)
-        val firstUser = (loadResult as? PagingSource.LoadResult.Page)?.data?.firstOrNull()
+        val firstUser = (loadResult as? LoadResult.Page)?.data?.firstOrNull()
 
         assertThat(firstUser?.email).isNotNull()
         assertThat(firstUser?.email).isEqualTo("hunter.slawa@example.com")
@@ -77,8 +77,8 @@ class MainViewModelTest {
         viewModel.getUsersPagerFlow()
         delay(2000)
 
-        val loadResult = viewModel.userPagingSource.load(PagingSource.LoadParams.Refresh( 0,  PAGE_SIZE, false))
-        if( loadResult is PagingSource.LoadResult.Error){
+        val loadResult = viewModel.userPagingSource.load(LoadParams.Refresh(0, PAGE_SIZE, false))
+        if (loadResult is LoadResult.Error) {
             val exception = loadResult.throwable
             assertThat(exception).isNotNull()
             assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
