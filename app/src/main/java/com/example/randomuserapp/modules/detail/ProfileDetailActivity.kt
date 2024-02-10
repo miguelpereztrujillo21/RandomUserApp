@@ -15,24 +15,27 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
-
+import javax.inject.Inject
+import javax.inject.Singleton
 
 class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    @Inject
+    lateinit var utils: Utils
     private lateinit var binding: ActivityDetailProfileBinding
     private var user: User? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setContentView(this, R.layout.activity_detail_profile)
         binding.lifecycleOwner = this
-
+        utils = Utils(this)
         getExtras()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title
         binding.mapDetailProfile.onCreate(savedInstanceState)
         binding.mapDetailProfile.getMapAsync(this)
-
     }
 
     private fun initComponents() {
@@ -45,16 +48,16 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun initToolbar() {
         binding.toolbarProfileDetail.apply {
             title.apply {
-                text = Utils.getUserFullName(applicationContext, user).uppercase()
+                text = utils.getUserFullName(user)
                 setTextColor(getColor(R.color.white))
             }
             backButton.apply {
-                Utils.changueColorDrawableWhite(applicationContext, drawable)
+                utils.changueColorDrawableWhite(drawable)
                 setOnClickListener {
                     finish()
                 }
             }
-            Utils.changueColorDrawableWhite(applicationContext, optionsButton.drawable)
+            utils.changueColorDrawableWhite(optionsButton.drawable)
         }
     }
 
@@ -62,7 +65,7 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.nameDetailProfile.setUpData(
             R.drawable.ic_user,
             getString(R.string.detail_name),
-            Utils.getUserFullName(this, user)
+            utils.getUserFullName( user)
         )
         binding.emailDetailProfile.setUpData(
             R.drawable.ic_mail,
@@ -72,12 +75,12 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.genderDetailProfile.setUpData(
             R.drawable.ic_gender,
             getString(R.string.detail_gender),
-            Utils.formarGender(this, user?.gender)
+            utils.formarGender(user?.gender)
         )
         binding.regDateDetailProfile.setUpData(
             R.drawable.calendar_icon,
             getString(R.string.detail_reg_date),
-            Utils.formatDateString(user?.registered?.date)
+            utils.formatDateString(user?.registered?.date)
         )
         binding.phoneDetailProfile.setUpData(
             R.drawable.ic_phone,

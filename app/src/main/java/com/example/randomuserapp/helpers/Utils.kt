@@ -8,14 +8,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.randomuserapp.R
 import com.example.randomuserapp.models.User
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object Utils {
+@Singleton
+class Utils @Inject constructor(@ApplicationContext private val context: Context) {
 
-    fun getUserFullName(context: Context,user: User?): String {
+    fun getUserFullName( user: User?): String {
         return context.getString(R.string.user_full_name, user?.name?.first, user?.name?.last)
     }
 
@@ -31,7 +35,7 @@ object Utils {
         return ""
     }
 
-    fun formarGender(context: Context,gender:String?): String? {
+    fun formarGender(gender: String?): String? {
         return when (gender) {
             Constants.MALE_KEY -> context.getString(R.string.simple_male)
             Constants.FEMALE_KEY -> context.getString(R.string.simple_female)
@@ -39,7 +43,7 @@ object Utils {
         }
     }
 
-    fun changueColorDrawableWhite(context: Context, drawable: Drawable){
+    fun changueColorDrawableWhite(drawable: Drawable) {
         drawable.let {
             DrawableCompat.setTint(
                 it, ContextCompat.getColor(
@@ -51,7 +55,6 @@ object Utils {
     }
 
     fun showDialog(
-        context: Context,
         activity: Activity,
         finishBtn: Boolean,
         description: String,
@@ -59,11 +62,11 @@ object Utils {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(context.getString(R.string.error_dialog_title))
         builder.setMessage(description)
-        if (finishBtn){
+        if (finishBtn) {
             builder.setPositiveButton(context.getString(R.string.error_dialog_close_btn)) { _, _ ->
                 activity.finishAffinity()
             }
-        }else{
+        } else {
             builder.setPositiveButton(context.getString(R.string.error_dialog_acept_btn_not_results)) { dialog, _ ->
                 dialog.dismiss()
             }

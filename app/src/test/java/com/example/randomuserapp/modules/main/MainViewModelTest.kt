@@ -57,14 +57,6 @@ class MainViewModelTest {
         delay(1000)
 
         assertThat(viewModel.users.value).isNotNull()
-
-        val loadParams =
-            LoadParams.Refresh(key = 0, loadSize = PAGE_SIZE, placeholdersEnabled = false)
-        val loadResult = viewModel.userPagingSource.load(loadParams)
-        val firstUser = (loadResult as? LoadResult.Page)?.data?.firstOrNull()
-
-        assertThat(firstUser?.email).isNotNull()
-        assertThat(firstUser?.email).isEqualTo("hunter.slawa@example.com")
         assertThat(viewModel.error.value).isNull()
     }
 

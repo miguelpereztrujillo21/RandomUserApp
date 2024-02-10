@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -94,9 +95,14 @@ dependencies {
     // Maps SDK for Android
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
-
+    //Dagger Hitl
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 }
 
+kapt {
+    correctErrorTypes = true
+}
 
 buildscript {
     repositories {

@@ -19,7 +19,7 @@ class UserPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val start = params.key ?: startingKey
-        return withContext(Dispatchers.IO) { // Ejecutar en un hilo de E/S
+        return withContext(Dispatchers.IO) {
             try {
                 val response = apiRepository.getUsers(start, 10, filterGender)
                 val users = response.results ?: emptyList()
@@ -33,7 +33,6 @@ class UserPagingSource(
                     nextKey = if (users.isNotEmpty()) start + params.loadSize else null
                 )
             } catch (e: Exception) {
-//                Log.e("RamdomUserApp","Error en UserPaginPaginSource",e)
                 LoadResult.Error(e)
             }
         }

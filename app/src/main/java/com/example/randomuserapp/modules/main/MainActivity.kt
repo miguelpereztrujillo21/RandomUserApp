@@ -19,13 +19,17 @@ import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import java.net.UnknownHostException
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var utils: Utils
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
     private val viewModelFactory = MainViewModelFactory(apiRepository)
     private var adapter: UserAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +64,9 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.error.observe(this) {
             if (it is UnknownHostException) {
-                Utils.showDialog(this, this, false, getString(R.string.error_not_internet))
+                utils.showDialog(this, false, getString(R.string.error_not_internet))
             } else {
-                Utils.showDialog(this, this, false, getString(R.string.error_dialog_description))
+                utils.showDialog( this, false, getString(R.string.error_dialog_description))
             }
         }
     }
