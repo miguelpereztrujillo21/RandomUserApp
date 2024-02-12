@@ -1,17 +1,11 @@
 package com.example.randomuserapp.helpers
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.core.graphics.drawable.DrawableCompat
 import com.example.randomuserapp.R
 import com.example.randomuserapp.models.Name
 import com.example.randomuserapp.models.User
-import com.google.common.base.CharMatcher.any
+import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,12 +13,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.mock
-import com.google.common.truth.Truth.assertThat
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.ArgumentMatchers.eq
-import org.mockito.Mockito.never
-import org.mockito.Mockito.reset
-import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
@@ -35,8 +23,6 @@ class UtilsTest {
     val instantExecutorRule = InstantTaskExecutorRule()
     @Mock
     private var mockContext: Context = mock(Context::class.java)
-    @Mock
-    private lateinit var activity: Activity
     private lateinit var utils:  Utils
 
     @Before
@@ -53,7 +39,7 @@ class UtilsTest {
         val userMock = mock(User::class.java)
 
         `when`(userMock.name).thenReturn(Name("", firstName, lastName))
-        `when`(mockContext.getString(R.string.user_full_name, firstName, lastName)).thenReturn("${firstName} ${lastName}")
+        `when`(mockContext.getString(R.string.user_full_name, firstName, lastName)).thenReturn("$firstName $lastName")
         assertNotNull(mockContext)
         val fullname = utils.getUserFullName(userMock)
         assertThat(fullname).isEqualTo("Miguel Perez")

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.randomuserapp.R
 import com.example.randomuserapp.databinding.ActivityDetailProfileBinding
@@ -15,7 +16,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
 import javax.inject.Inject
 
 class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -24,20 +24,29 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var utils: Utils
     private lateinit var binding: ActivityDetailProfileBinding
     private var user: User? = null
+    private  lateinit var viewModel: ProfileDetailViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setContentView(this, R.layout.activity_detail_profile)
         binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(this)[ProfileDetailViewModel::class.java]
         utils = Utils(this)
         getExtras()
+        initObservers()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title
         binding.mapDetailProfile.onCreate(savedInstanceState)
         binding.mapDetailProfile.getMapAsync(this)
     }
 
+    private fun initObservers(){
+        viewModel.user.observe(this){
+            user = it
+            initComponents()
+        }
+    }
     private fun initComponents() {
         initToolbar()
         setUpTextViews()
@@ -102,8 +111,7 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun getExtras() {
         val userJSON = intent.extras?.getString(Constants.BUNDLE_KEY_USER)
-        user = Gson().fromJson(userJSON, User::class.java)
-        initComponents()
+        viewModel.getUsers(userJSON)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

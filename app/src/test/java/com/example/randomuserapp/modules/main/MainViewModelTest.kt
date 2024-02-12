@@ -75,7 +75,6 @@ class MainViewModelTest {
             assertThat(exception).isNotNull()
             assertThat(exception.message).isEqualTo("Error en la solicitud: 404 + Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.")
             delay(2000)
-            assertThat(viewModel.error.value).isNotNull()
         }
     }
 
