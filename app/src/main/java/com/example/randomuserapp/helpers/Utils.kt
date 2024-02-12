@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.randomuserapp.R
 import com.example.randomuserapp.models.User
@@ -43,13 +42,10 @@ class Utils @Inject constructor(@ApplicationContext private val context: Context
         }
     }
 
-    fun changueColorDrawableWhite(drawable: Drawable) {
+    fun changueColorDrawable(drawable: Drawable, color: Int) {
         drawable.let {
             DrawableCompat.setTint(
-                it, ContextCompat.getColor(
-                    context,
-                    R.color.white
-                )
+                it, color
             )
         }
     }

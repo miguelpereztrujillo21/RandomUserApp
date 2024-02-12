@@ -2,6 +2,7 @@ package com.example.randomuserapp.modules.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import com.bumptech.glide.Glide
 import com.example.randomuserapp.R
@@ -16,7 +17,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -52,12 +52,22 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 setTextColor(getColor(R.color.white))
             }
             backButton.apply {
-                utils.changueColorDrawableWhite(drawable)
+                utils.changueColorDrawable(
+                    drawable, ContextCompat.getColor(
+                        applicationContext,
+                        R.color.white
+                    )
+                )
                 setOnClickListener {
                     finish()
                 }
             }
-            utils.changueColorDrawableWhite(optionsButton.drawable)
+            utils.changueColorDrawable(
+                optionsButton.drawable, ContextCompat.getColor(
+                    applicationContext,
+                    R.color.white
+                )
+            )
         }
     }
 

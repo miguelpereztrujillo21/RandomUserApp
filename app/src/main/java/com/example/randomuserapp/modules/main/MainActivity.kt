@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     val errorMessage = refreshState.error.localizedMessage
                     viewModel.handleException(Throwable(errorMessage))
                 }
-
             }
         }
         viewModel.filterEmail.observe(this) {
