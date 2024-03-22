@@ -20,6 +20,7 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_container_main"
             android:layout_width="match_parent"

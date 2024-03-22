@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
+import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
@@ -18,15 +19,19 @@ import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
+import dagger.hilt.DefineComponent
+import dagger.hilt.android.AndroidEntryPoint
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity: AppCompatActivity() {
     @Inject
     lateinit var utils: Utils
+
+    private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
     private val viewModelFactory = MainViewModelFactory(apiRepository)
     private var adapter: UserAdapter? = null
 
