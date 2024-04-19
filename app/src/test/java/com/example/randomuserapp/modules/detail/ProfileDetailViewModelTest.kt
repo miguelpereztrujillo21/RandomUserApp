@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -43,11 +42,11 @@ class ProfileDetailViewModelTest {
         val userJSON = getExampleUserJSON()
         val user = getExampleUser()
 
-        viewModel.user.observeForever(userObserver) // Observa LiveData
-        viewModel.getUsers(userJSON) // Llama a la función a probar
+        viewModel.user.observeForever(userObserver)
+        viewModel.getUsers(userJSON)
 
         assertThat(viewModel.user.value).isNotNull()
-        assertThat(viewModel.user.value?.email).isEqualTo(user.email) // Verifica que el Observer se llamó con el usuario esperado
+        assertThat(viewModel.user.value?.email).isEqualTo(user.email)
     }
 
     @Test
@@ -134,7 +133,7 @@ class ProfileDetailViewModelTest {
                 city = "Eggesin",
                 state = "Schleswig-Holstein",
                 country = "Germany",
-                postcode = 19655,
+                postcode = "19655",
                 coordinates = Coordinates(
                     latitude = "-47.9789",
                     longitude = "-156.8078"
