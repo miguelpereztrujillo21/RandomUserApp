@@ -9,6 +9,7 @@ import androidx.paging.LoadState
 import com.example.randomuserapp.BaseActivity
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
+import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
@@ -26,17 +27,17 @@ import javax.inject.Inject
 class MainActivity: BaseActivity(){
     @Inject
     lateinit var utils: Utils
-
-    private val apiRepository = ApiRepositoryImpl(RetrofitHelper.getInstance())
+    @Inject
+    lateinit var apiRepository: ApiRepository
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private val viewModelFactory = MainViewModelFactory(apiRepository)
     private var adapter: UserAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        val viewModelFactory = MainViewModelFactory(apiRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding.lifecycleOwner = this
         binding.mainActivity = this

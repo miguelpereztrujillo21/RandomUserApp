@@ -2,8 +2,9 @@ package com.example.randomuserapp.api
 
 import com.example.randomuserapp.models.UserResponse
 import com.google.gson.JsonParser
+import javax.inject.Inject
 
-class ApiRepositoryImpl(private val api: Api) : ApiRepository {
+class ApiRepositoryImpl @Inject constructor(private val api: Api) : ApiRepository {
     override suspend fun getUsers(page: Int?, results:Int?, gender: String?): UserResponse {
         return try {
             val response = api.getUsers(page,results,gender)
