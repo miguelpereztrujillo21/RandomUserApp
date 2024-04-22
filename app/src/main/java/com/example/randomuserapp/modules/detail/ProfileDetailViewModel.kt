@@ -19,6 +19,5 @@ class ProfileDetailViewModel : ViewModel() {
         }catch (e: Exception){
             _error.postValue(e)
         }
-
     }
 }

@@ -12,14 +12,17 @@ import androidx.paging.cachedIn
 import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.UserPagingSource
 import com.example.randomuserapp.models.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val apiRepository: ApiRepository) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val apiRepository: ApiRepository) : ViewModel() {
 
     val filterEmail = MutableLiveData<String>()
     val filterGender = MutableLiveData<String>()

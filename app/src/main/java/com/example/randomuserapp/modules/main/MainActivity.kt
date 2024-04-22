@@ -3,6 +3,7 @@ package com.example.randomuserapp.modules.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
@@ -27,18 +28,14 @@ import javax.inject.Inject
 class MainActivity: BaseActivity(){
     @Inject
     lateinit var utils: Utils
-    @Inject
-    lateinit var apiRepository: ApiRepository
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private var adapter: UserAdapter? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        val viewModelFactory = MainViewModelFactory(apiRepository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+
         binding.lifecycleOwner = this
         binding.mainActivity = this
         binding.mainViewModel = viewModel
