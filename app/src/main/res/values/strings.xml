@@ -19,7 +19,7 @@
     <string name="google_maps_api_key">AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA</string>
 
     <string name="error_dialog_title">Error de conexión</string>
-    <string name="error_dialog_description">Prueba mas tarde</string>
+    <string name="error_dialog_description">Error de conexión, prueba mas tarde</string>
     <string name="error_dialog_close_btn">Cerrar</string>
     <string name="error_dialog_acept_btn_not_results">Aceptar</string>
     <string name="error_not_internet">Comprueba tu conexión a internet</string>
