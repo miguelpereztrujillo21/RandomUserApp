@@ -24,13 +24,19 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val apiRepository: ApiRepository) : ViewModel() {
 
-    val filterEmail = MutableLiveData<String>()
-    val filterGender = MutableLiveData<String>()
+    private val _filterEmail = MutableLiveData<String>()
+    val filterEmail: LiveData<String> get() = _filterEmail
+    private val _filterGender = MutableLiveData<String>()
+    val filterGender: LiveData<String> get() = _filterGender
     private val _users = MutableLiveData<PagingData<User>>()
     val users: LiveData<PagingData<User>> get() = _users
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
     lateinit var userPagingSource: UserPagingSource
+
+    fun setFilterEmail(email: String) {
+        _filterEmail.value = email
+    }
 
     fun getUsersPagerFlow() {
         val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
@@ -40,7 +46,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
         CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
             try {
                  userPagingSource =
-                    UserPagingSource(apiRepository, filterEmail.value, filterGender.value)
+                    UserPagingSource(apiRepository, _filterEmail.value, _filterGender.value)
                 Pager(
                     config = PagingConfig(
                         pageSize = PAGE_SIZE,
@@ -64,9 +70,9 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
     }
 
     fun handleException(e: Throwable) {
-            _error.postValue(e)
+        _error.postValue(e)
     }
     fun onChipCheckedChanged(isChecked: Boolean, filter: String) {
-        filterGender.value = if (isChecked) filter else ""
+        _filterGender.value = if (isChecked) filter else ""
     }
 }

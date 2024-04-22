@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_search"
                 android:hint="@string/simple_search_by_email"
-                android:text="@={mainViewModel.filterEmail}" />
+                android:afterTextChanged="@{(editable) -> mainViewModel.setFilterEmail(editable.toString())}"
+                android:text="@{mainViewModel.filterEmail}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <include
