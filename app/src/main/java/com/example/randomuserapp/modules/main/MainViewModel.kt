@@ -11,6 +11,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.UserPagingSource
+import com.example.randomuserapp.api.UserPagingSourceFactory
 import com.example.randomuserapp.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val apiRepository: ApiRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val userPagingSourceFactory: UserPagingSourceFactory) : ViewModel() {
 
     private val _filterEmail = MutableLiveData<String>()
     val filterEmail: LiveData<String> get() = _filterEmail
@@ -32,7 +33,6 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
     val users: LiveData<PagingData<User>> get() = _users
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
-    lateinit var userPagingSource: UserPagingSource
 
     fun setFilterEmail(email: String) {
         _filterEmail.value = email
@@ -45,8 +45,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
         }
         CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
             try {
-                 userPagingSource =
-                    UserPagingSource(apiRepository, _filterEmail.value, _filterGender.value)
+                val userPagingSource = userPagingSourceFactory.create(_filterEmail.value, _filterGender.value)
                 Pager(
                     config = PagingConfig(
                         pageSize = PAGE_SIZE,

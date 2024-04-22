@@ -6,9 +6,10 @@ import androidx.paging.PagingState
 import com.example.randomuserapp.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 import kotlin.math.max
 
-class UserPagingSource(
+class UserPagingSource @Inject constructor(
     private val apiRepository: ApiRepository,
     private val filterEmail: String?,
     private val filterGender: String?

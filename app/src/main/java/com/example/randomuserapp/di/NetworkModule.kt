@@ -5,6 +5,8 @@ import com.example.randomuserapp.RandomUserApp
 import com.example.randomuserapp.api.Api
 import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.ApiRepositoryImpl
+import com.example.randomuserapp.api.UserPagingSource
+import com.example.randomuserapp.api.UserPagingSourceFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +27,10 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(Api::class.java)
+    }
+    @Provides
+    fun provideUserPagingSourceFactory(apiRepository: ApiRepository): UserPagingSourceFactory {
+        return UserPagingSourceFactory(apiRepository)
     }
 
     @Provides
