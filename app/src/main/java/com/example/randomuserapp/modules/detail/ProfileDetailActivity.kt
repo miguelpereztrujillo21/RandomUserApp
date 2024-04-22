@@ -1,11 +1,16 @@
 package com.example.randomuserapp.modules.detail
 
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.randomuserapp.BaseActivity
 import com.example.randomuserapp.R
 import com.example.randomuserapp.databinding.ActivityDetailProfileBinding
 import com.example.randomuserapp.helpers.Constants
@@ -18,7 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import javax.inject.Inject
 
-class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
+class ProfileDetailActivity : BaseActivity(), OnMapReadyCallback {
 
     @Inject
     lateinit var utils: Utils
@@ -55,6 +60,7 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun initToolbar() {
+
         binding.toolbarProfileDetail.apply {
             title.apply {
                 text = utils.getUserFullName(user)
@@ -77,6 +83,7 @@ class ProfileDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                     R.color.white
                 )
             )
+            setStatusBarMargin(toolbarContainer)
         }
     }
 

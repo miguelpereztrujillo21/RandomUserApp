@@ -3,13 +3,12 @@ package com.example.randomuserapp.modules.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
+import com.example.randomuserapp.BaseActivity
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
-import com.example.randomuserapp.api.ApiRepository
 import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
@@ -19,13 +18,12 @@ import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
-import dagger.hilt.DefineComponent
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
+class MainActivity: BaseActivity(){
     @Inject
     lateinit var utils: Utils
 
@@ -76,8 +74,8 @@ class MainActivity: AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setUpRecycler()
         initToolbar()
+        setUpRecycler()
         initChips()
     }
 
@@ -93,6 +91,7 @@ class MainActivity: AppCompatActivity() {
                     binding.layoutFilters.chipGroupGenderMain.visibility = View.VISIBLE
                 }
             }
+            setStatusBarMargin(toolbarContainer)
         }
     }
 
