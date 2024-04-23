@@ -24,10 +24,10 @@ class UserPagingSource @Inject constructor(
             try {
                 val response = apiRepository.getUsers(start, 10, filterGender)
                 val users = response.results ?: emptyList()
-                val filteredUsers = users.filter {
+                val filteredUsers = users.asSequence().filter {
                     (filterEmail == null || it.email.contains(filterEmail, ignoreCase = true)) &&
                             uniqueUsers.add("${it.login.username}${it.email}")
-                }
+                }.toList()
                 LoadResult.Page(
                     data = filteredUsers,
                     prevKey = if (start == startingKey) null else ensureValidKey(start - params.loadSize),
