@@ -11,8 +11,8 @@ import kotlin.math.max
 
 class UserPagingSource @Inject constructor(
     private val apiRepository: ApiRepository,
-    private val filterEmail: String?,
-    private val filterGender: String?
+    private var filterEmail: String?,
+    private var filterGender: String?
 ) : PagingSource<Int, User>() {
 
     private val startingKey = 1
@@ -24,10 +24,8 @@ class UserPagingSource @Inject constructor(
             try {
                 val response = apiRepository.getUsers(start, 10, filterGender)
                 val users = response.results ?: emptyList()
-                val filteredUsers = users.asSequence().filter {
-                    (filterEmail == null || it.email.contains(filterEmail, ignoreCase = true)) &&
-                            uniqueUsers.add("${it.login.username}${it.email}")
-                }.toList()
+
+                val filteredUsers = users.asSequence().filter(::matchesFilter).toList()
                 LoadResult.Page(
                     data = filteredUsers,
                     prevKey = if (start == startingKey) null else ensureValidKey(start - params.loadSize),
@@ -47,4 +45,10 @@ class UserPagingSource @Inject constructor(
     }
 
     private fun ensureValidKey(key: Int) = max(startingKey, key)
+
+    private fun matchesFilter(user: User): Boolean {
+        val localFilterEmail = filterEmail
+        return (localFilterEmail == null || user.email.contains(localFilterEmail, ignoreCase = true))
+                && uniqueUsers.add("${user.login.username}${user.email}")
+    }
 }
