@@ -8,23 +8,47 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.randomuserapp.R
+import com.example.randomuserapp.databinding.ItemRowProgressBinding
 import com.example.randomuserapp.databinding.UserItemBinding
 import com.example.randomuserapp.models.User
 
 class UserAdapter(private val context: Context, private val clickListener: ClickListener) :
-    PagingDataAdapter<User, UserAdapter.ViewHolder>(
+    PagingDataAdapter<User, RecyclerView.ViewHolder>(
         CountryDiffCallback()
     ) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+    var isLoading = false
+    companion object {
+        private const val VIEW_TYPE_ITEM = 0
+        private const val VIEW_TYPE_LOADING = 1
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(context, it, clickListener) }
+    override fun getItemViewType(position: Int): Int {
+        return if (isLoading && position == itemCount - 1) {
+            VIEW_TYPE_LOADING
+        } else {
+            VIEW_TYPE_ITEM
+        }
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_ITEM) {
+            UserViewHolder.from(parent)
+        } else {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ItemRowProgressBinding.inflate(layoutInflater, parent, false)
+            LoadingViewHolder(binding)
+        }
     }
 
-    class ViewHolder private constructor(private val binding: UserItemBinding) :
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is UserViewHolder) {
+            val user = getItem(position)
+            if (user != null) {
+                holder.bind(context, user, clickListener)
+            }
+        }
+    }
+
+    class UserViewHolder private constructor(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
@@ -40,13 +64,16 @@ class UserAdapter(private val context: Context, private val clickListener: Click
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup): UserViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = UserItemBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return UserViewHolder(binding)
             }
         }
     }
+
+    class LoadingViewHolder(private val binding: ItemRowProgressBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     class CountryDiffCallback : DiffUtil.ItemCallback<User>() {
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {

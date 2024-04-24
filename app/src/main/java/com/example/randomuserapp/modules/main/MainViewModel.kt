@@ -34,6 +34,9 @@ class MainViewModel @Inject constructor(private val userPagingSourceFactory: Use
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun setFilterEmail(email: String) {
         _filterEmail.value = email
     }
@@ -45,6 +48,7 @@ class MainViewModel @Inject constructor(private val userPagingSourceFactory: Use
         }
         CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
             try {
+
                 val userPagingSource = userPagingSourceFactory.create(_filterEmail.value, _filterGender.value)
                 Pager(
                     config = PagingConfig(

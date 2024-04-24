@@ -5,17 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
 import com.example.randomuserapp.BaseActivity
 import com.example.randomuserapp.R
 import com.example.randomuserapp.adapters.UserAdapter
-import com.example.randomuserapp.api.ApiRepository
-import com.example.randomuserapp.api.ApiRepositoryImpl
 import com.example.randomuserapp.databinding.ActivityMainBinding
 import com.example.randomuserapp.helpers.Constants
 import com.example.randomuserapp.helpers.PopupMenuHelper
-import com.example.randomuserapp.helpers.RetrofitHelper
 import com.example.randomuserapp.helpers.Utils
 import com.example.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
@@ -107,6 +103,10 @@ class MainActivity: BaseActivity(){
             }
         })
         binding.recyclerMain.adapter = adapter
+        adapter?.addLoadStateListener { loadState ->
+            val isLoading = loadState.refresh is LoadState.NotLoading
+            adapter?.isLoading = isLoading
+        }
     }
 
     private fun initChips() {
