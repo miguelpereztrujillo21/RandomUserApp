@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="@dimen/mid_large_margin"
-            android:apiKey="@string/google_maps_api_key"
+            android:apiKey="@string/MAPS_KEY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
