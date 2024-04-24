@@ -105,7 +105,9 @@ class MainActivity: BaseActivity(){
         binding.recyclerMain.adapter = adapter
         adapter?.addLoadStateListener { loadState ->
             val isLoading = loadState.refresh is LoadState.NotLoading
-            adapter?.isLoading = isLoading
+            if(!isLoading ){
+                adapter?.isLoading = true
+            }
         }
     }
 
