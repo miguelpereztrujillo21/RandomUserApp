@@ -9,6 +9,28 @@
       "client_info": {
         "mobilesdk_app_id": "1:275030533986:android:2f60501d85a72f9c6cae3b",
         "android_client_info": {
+          "package_name": "com.example.randomuserapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA"
+        },
+        {
+          "current_key": "AIzaSyBLiGTXgvnSWo5cNjsPd9cAPoTzEtDqpmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275030533986:android:f6d5490939084dbb6cae3b",
+        "android_client_info": {
           "package_name": "com.mpt.randomuserapp"
         }
       },
@@ -16,6 +38,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA"
+        },
+        {
+          "current_key": "AIzaSyBLiGTXgvnSWo5cNjsPd9cAPoTzEtDqpmI"
         }
       ],
       "services": {
