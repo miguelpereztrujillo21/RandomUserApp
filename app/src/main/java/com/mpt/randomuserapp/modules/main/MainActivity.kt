@@ -85,7 +85,6 @@ class MainActivity: BaseActivity(){
                     binding.layoutFilters.chipGroupGenderMain.visibility = View.VISIBLE
                 }
             }
-            setStatusBarMargin(toolbarContainer)
         }
     }
 

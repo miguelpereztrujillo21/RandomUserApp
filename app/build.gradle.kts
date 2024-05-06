@@ -15,7 +15,7 @@ android {
         applicationId = "com.mpt.randomuserapp"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resValue("string", "MAPS_KEY", "\"${findProperty("GoogleMapsApiKey")}\"")
@@ -32,7 +32,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            isDebuggable = true
+            isDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
             buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
             buildConfigField("String", "MAPS_KEY", "\"${findProperty("MAPS_API_KEY")}\"")
