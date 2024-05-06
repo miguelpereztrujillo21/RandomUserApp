@@ -3,6 +3,7 @@ package com.mpt.randomuserapp.modules.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.paging.LoadState
@@ -69,6 +70,7 @@ class MainActivity: BaseActivity(){
 
     private fun initComponents() {
         initToolbar()
+        onBackPress()
         setUpRecycler()
         initChips()
     }
@@ -86,6 +88,7 @@ class MainActivity: BaseActivity(){
                 }
             }
         }
+        setBackButtonFunctionality(binding.toolbar.backButton)
     }
 
     private fun setUpRecycler() {
@@ -119,5 +122,17 @@ class MainActivity: BaseActivity(){
         chip.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onChipCheckedChanged(isChecked,filter)
         }
+    }
+
+     fun onBackPress() {
+         onBackPressedDispatcher.addCallback(this) {
+             if (binding.searchContainerMain.visibility == View.VISIBLE) {
+                 binding.searchContainerMain.visibility = View.GONE
+             } else if (binding.layoutFilters.chipGroupGenderMain.visibility == View.VISIBLE) {
+                 binding.layoutFilters.chipGroupGenderMain.visibility = View.GONE
+             } else {
+                 finish()
+             }
+         }
     }
 }

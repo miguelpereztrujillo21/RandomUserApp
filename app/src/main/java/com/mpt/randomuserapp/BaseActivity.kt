@@ -25,4 +25,9 @@ open class BaseActivity : AppCompatActivity() {
             }
         }
     }
+    fun BaseActivity.setBackButtonFunctionality(backButton: View) {
+        backButton.setOnClickListener {
+            this.onBackPressedDispatcher.onBackPressed()
+        }
+    }
 }
