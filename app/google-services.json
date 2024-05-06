@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275030533986",
+    "project_id": "ramdomuserapp",
+    "storage_bucket": "ramdomuserapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275030533986:android:2f60501d85a72f9c6cae3b",
+        "android_client_info": {
+          "package_name": "com.mpt.randomuserapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

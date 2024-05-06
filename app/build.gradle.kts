@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.randomuserapp"
+    namespace = "com.mpt.randomuserapp"
     compileSdk = 34
     dataBinding.enable = true
 
     defaultConfig {
-        applicationId = "com.example.randomuserapp"
+        applicationId = "com.mpt.randomuserapp"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -46,7 +46,7 @@ android {
             )
             signingConfig = signingConfigs.getByName("debug")
             buildConfigField("String", "API_URL", "\"https://randomuser.me/\"")
-            buildConfigField("String", "MAPS_KEY", "\"AIzaSyD7tyMS9MULNTk2Cek55Mz--BBvanubFZA\"")
+            buildConfigField("String", "MAPS_KEY", "\"${findProperty("MAPS_API_KEY")}\"")
         }
     }
 

@@ -7,7 +7,7 @@
 
         <variable
             name="activityCharacterDetail"
-            type="com.example.randomuserapp.modules.detail.ProfileDetailActivity" />
+            type="com.mpt.randomuserapp.modules.detail.ProfileDetailActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/background_detail_profile" />
 
-        <com.example.randomuserapp.custom_views.ProfileTextView
+        <com.mpt.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/name_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_button_profile_detail" />
 
-        <com.example.randomuserapp.custom_views.ProfileTextView
+        <com.mpt.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/email_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name_detail_profile" />
 
-        <com.example.randomuserapp.custom_views.ProfileTextView
+        <com.mpt.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/gender_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_detail_profile" />
 
-        <com.example.randomuserapp.custom_views.ProfileTextView
+        <com.mpt.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/reg_date_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gender_detail_profile" />
 
-        <com.example.randomuserapp.custom_views.ProfileTextView
+        <com.mpt.randomuserapp.custom_views.ProfileTextView
             android:id="@+id/phone_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
