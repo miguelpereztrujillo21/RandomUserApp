@@ -30,6 +30,7 @@ class ProfileDetailActivity : BaseActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setContentView(this, R.layout.activity_detail_profile)
+        setStatusBarMargin(binding.toolbarProfileDetail.toolbarContainer)
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this)[ProfileDetailViewModel::class.java]
         utils = Utils(this)
@@ -55,7 +56,6 @@ class ProfileDetailActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun initToolbar() {
-
         binding.toolbarProfileDetail.apply {
             title.apply {
                 text = utils.getUserFullName(user)
@@ -78,7 +78,6 @@ class ProfileDetailActivity : BaseActivity(), OnMapReadyCallback {
                     R.color.white
                 )
             )
-            setStatusBarMargin(toolbarContainer)
         }
     }
 
