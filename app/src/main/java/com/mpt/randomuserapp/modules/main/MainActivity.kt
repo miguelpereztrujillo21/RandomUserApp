@@ -17,6 +17,7 @@ import com.mpt.randomuserapp.helpers.Utils
 import com.mpt.randomuserapp.modules.detail.ProfileDetailActivity
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
+import com.mpt.randomuserapp.data.UsersPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -25,6 +26,8 @@ import javax.inject.Inject
 class MainActivity: BaseActivity(){
     @Inject
     lateinit var utils: Utils
+    @Inject
+    lateinit var userPreferences: UsersPreferences
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private var adapter: UserAdapter? = null
@@ -42,6 +45,11 @@ class MainActivity: BaseActivity(){
         initComponents()
     }
 
+    override fun onStart(){
+        super.onStart()
+    }
+
+
     private fun initObservers() {
         viewModel.users.observe(this) {
             adapter?.submitData(lifecycle, it)
@@ -58,6 +66,9 @@ class MainActivity: BaseActivity(){
         }
         viewModel.filterGender.observe(this) {
             viewModel.getUsersPagerFlow()
+            binding.layoutFilters.chipGroupGenderMain.visibility = if (it != "") View.VISIBLE else View.GONE;
+            binding.layoutFilters.chipGenderMaleMain.isChecked = it == Constants.MALE_KEY
+            binding.layoutFilters.chipGenderFemaleMain.isChecked = it == Constants.FEMALE_KEY
         }
         viewModel.error.observe(this) {
             if (it is UnknownHostException) {
@@ -124,7 +135,7 @@ class MainActivity: BaseActivity(){
         }
     }
 
-     fun onBackPress() {
+     private fun onBackPress() {
          onBackPressedDispatcher.addCallback(this) {
              if (binding.searchContainerMain.visibility == View.VISIBLE) {
                  binding.searchContainerMain.visibility = View.GONE

@@ -9,9 +9,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.mpt.randomuserapp.api.ApiRepository
-import com.mpt.randomuserapp.api.UserPagingSource
 import com.mpt.randomuserapp.api.UserPagingSourceFactory
+import com.mpt.randomuserapp.data.UsersPreferences
 import com.mpt.randomuserapp.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -23,33 +22,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val userPagingSourceFactory: UserPagingSourceFactory) : ViewModel() {
+class MainViewModel @Inject constructor(private val userPagingSourceFactory: UserPagingSourceFactory,
+    private val usersPreferences: UsersPreferences) : ViewModel() {
 
     private val _filterEmail = MutableLiveData<String>()
     val filterEmail: LiveData<String> get() = _filterEmail
-    private val _filterGender = MutableLiveData<String>()
+    private val _filterGender = MutableLiveData(usersPreferences.getGenderFilter() ?: "")
     val filterGender: LiveData<String> get() = _filterGender
     private val _users = MutableLiveData<PagingData<User>>()
     val users: LiveData<PagingData<User>> get() = _users
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
     fun setFilterEmail(email: String) {
         _filterEmail.value = email
     }
 
     fun getUsersPagerFlow() {
-        val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
-            Log.e("RandomUserApp", "Error en la coroutine del MainViewModel",throwable)
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Log.e("RandomUserApp", "Error en la coroutine del MainViewModel", throwable)
             handleException(throwable)
         }
-        CoroutineScope(Dispatchers.IO + exceptionHandler ).launch {
+        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             try {
 
-                val userPagingSource = userPagingSourceFactory.create(_filterEmail.value, _filterGender.value)
+                val userPagingSource =
+                    userPagingSourceFactory.create(_filterEmail.value, _filterGender.value)
                 Pager(
                     config = PagingConfig(
                         pageSize = PAGE_SIZE,
@@ -75,7 +73,13 @@ class MainViewModel @Inject constructor(private val userPagingSourceFactory: Use
     fun handleException(e: Throwable) {
         _error.postValue(e)
     }
+
     fun onChipCheckedChanged(isChecked: Boolean, filter: String) {
-        _filterGender.value = if (isChecked) filter else ""
+        val newFilterValue = if (isChecked) filter else ""
+        if(_filterGender.value != newFilterValue){
+            _filterGender.value = newFilterValue
+            usersPreferences.setGenderFilter(_filterGender.value ?: "");
+        }
     }
+
 }
