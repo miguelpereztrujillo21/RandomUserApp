@@ -45,15 +45,14 @@ class MainViewModel @Inject constructor(private val userPagingSourceFactory: Use
         }
         CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             try {
-
-                val userPagingSource =
-                    userPagingSourceFactory.create(_filterEmail.value, _filterGender.value)
+                userPagingSourceFactory.filterEmail = _filterEmail.value
+                userPagingSourceFactory.filterGender = _filterGender.value
                 Pager(
                     config = PagingConfig(
                         pageSize = PAGE_SIZE,
                         enablePlaceholders = false
                     ),
-                    pagingSourceFactory = { userPagingSource }
+                    pagingSourceFactory = { userPagingSourceFactory() }
                 ).flow
                     .cachedIn(this)
                     .catch { e ->

@@ -78,6 +78,8 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
     //Mockito
     testImplementation("org.mockito:mockito-core:5.5.0")
+    androidTestImplementation("org.mockito:mockito-android:5.5.0")
+    androidTestImplementation("org.mockito:mockito-inline:5.5.0")
     androidTestImplementation("org.mockito:mockito-core:5.5.0")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -96,9 +98,11 @@ dependencies {
     // Maps SDK for Android
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
-    //Dagger Hitl
+    //Hitl
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
 }
 
 kapt {

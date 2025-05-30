@@ -1,11 +1,16 @@
 package com.mpt.randomuserapp.api
 
+import androidx.paging.PagingSource
+import com.mpt.randomuserapp.models.User
 import javax.inject.Inject
 
 class UserPagingSourceFactory @Inject constructor(
     private val apiRepository: ApiRepository
-) {
-    fun create(filterEmail: String?, filterGender: String?): UserPagingSource {
+) : () -> PagingSource<Int, User> {
+    var filterEmail: String? = null
+    var filterGender: String? = null
+
+    override fun invoke(): PagingSource<Int, User> {
         return UserPagingSource(apiRepository, filterEmail, filterGender)
     }
 }
